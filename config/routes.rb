@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'static/index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :sessions, only: [:create]
   resources :registrations, only: [:create]
@@ -6,5 +7,5 @@ Rails.application.routes.draw do
     namespace 'v1' do
     end
   end
-  root 'api/v1/users#index'
+  root 'static#index'
 end
