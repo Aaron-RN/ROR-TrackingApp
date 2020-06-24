@@ -1,13 +1,8 @@
 class RegistrationsController < ApplicationController
   def create
-    user = User.new(
-      username: params['user']['username'],
-      email: params['user']['email'],
-      password: params['user']['password'],
-      password_confirmation: params['user']['password_confirmation']
-    )
+    user = User.create!(user_params)
 
-    if user.save
+    if user
       session[:user_id] = user.id
       render json: {
         status: :created,
@@ -17,5 +12,12 @@ class RegistrationsController < ApplicationController
       render json: { status: 'ERROR', message: 'Account could not be created!',
                      error: user.errors.full_messages }, status: 500
     end
+  end
+  
+  private
+
+  # only allow the white list through.
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 end
