@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   include CurrentUserConcern
 
   def create
-    user = User.find_by(email: params['user']['email'])
+    user = User.where(username: params['user']['username']).or(email: params['user']['email'])
       .try(:authenticate, params['user']['password'])
 
     if user
