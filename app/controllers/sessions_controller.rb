@@ -14,7 +14,9 @@ class SessionsController < ApplicationController
         logged_in: true,
         user: user
       }
-    else render json: { status: 401 }
+    else
+      render json: { status: 'ERROR', message: 'Could not log in!',
+                     error: user.errors.full_messages }, status: 401
     end
   end
 

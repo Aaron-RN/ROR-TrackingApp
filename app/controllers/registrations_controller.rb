@@ -13,7 +13,9 @@ class RegistrationsController < ApplicationController
         status: :created,
         user: user
       }
-    else render json: { status: 500 }
+    else
+      render json: { status: 'ERROR', message: 'Account could not be created!',
+                     error: user.errors.full_messages }, status: 500
     end
   end
 end
