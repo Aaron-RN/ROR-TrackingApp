@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  include CurrentUserConcern
+  include SessionsHelper
 
   def create
     user = User.where(username: params['user']['username']).or(email: params['user']['email'])
