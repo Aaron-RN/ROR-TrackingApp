@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.where(username: params['user']['username']).or(User.where(email: params['user']['email']))
+    puts user
 
     if user
       if user.try(:authenticate, params['user']['password'])
