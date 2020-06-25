@@ -5,18 +5,22 @@ class SessionsController < ApplicationController
 
   def create
     user = User.where(username: params['user']['username']).or(User.where(email: params['user']['email']))
-      .try(:authenticate, params['user']['password'])
 
     if user
-      session[:user_id] = user.id
-      render json: {
-        status: :created,
-        logged_in: true,
-        user: user
-      }
+      if user.try(:authenticate, params['user']['password'])
+        session[:user_id] = user.id
+        render json: {
+          status: :created,
+          logged_in: true,
+          user: user
+        }
+      else
+        render json: { status: 'ERROR', message: 'Could not log in!',
+                       error: ['Incorrect Password'] }, status: 401
+      end
     else
       render json: { status: 'ERROR', message: 'Could not log in!',
-                     error: user.errors.full_messages }, status: 401
+                     error: ['User does not exist'] }, status: 401
     end
   end
 
