@@ -1,8 +1,8 @@
 class RegistrationsController < ApplicationController
   def create
-    user = User.create!(user_params)
+    user = User.new(user_params)
 
-    if user
+    if user.save
       session[:user_id] = user.id
       render json: {
         status: :created,
@@ -18,6 +18,6 @@ class RegistrationsController < ApplicationController
 
   # only allow the white list through.
   def user_params
-    params.require(:registration).require(:user).permit(:username, :email, :password, :password_confirmation)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 end
