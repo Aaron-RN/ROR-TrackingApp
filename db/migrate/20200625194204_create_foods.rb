@@ -3,6 +3,7 @@ class CreateFoods < ActiveRecord::Migration[6.0]
     create_table :foods do |t|
       t.string :name
       t.date :date_consumed
+      t.integer :servings_consumed
       t.float :carbs
       t.float :fats
       t.float :protein
