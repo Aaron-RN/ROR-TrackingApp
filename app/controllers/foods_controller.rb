@@ -5,14 +5,18 @@ class FoodsController < ApplicationController
   before_action :set_food, only: %i[show update destroy]
 
   def index
-    render json: Food.all
+    render json: {
+      food: Food.all,
+      selected_food: {}
+    }
   end
 
   def show
     if @food
       render json: {
         status: :ok,
-        food: @food
+        food: Food.all,
+        selected_food: { **@food, notes: @food.notes }
       }
     else
       render json: { status: 'ERROR', message: 'Food could not be found!',
@@ -26,7 +30,8 @@ class FoodsController < ApplicationController
     if food.save
       render json: {
         status: :created,
-        food: food
+        food: Food.all,
+        selected_food: food
       }
     else
       render json: { status: 'ERROR', message: 'Food could not be created!',
@@ -38,7 +43,8 @@ class FoodsController < ApplicationController
     if @food.update(book_params)
       render json: {
         status: :ok,
-        food: food
+        food: Food.all,
+        selected_food: @food
       }
     else
       render json: { status: 'ERROR', message: 'Food could not be updated!',
@@ -49,7 +55,7 @@ class FoodsController < ApplicationController
   def destroy
     @food.destroy
     render json: { status: 'SUCCESS', message: 'Food was successfully deleted!',
-                   food: @food }, status: :ok
+                   food: Food.all, selected_food: @food }, status: :ok
   end
 
   private

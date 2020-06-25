@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   delete :logout, to: 'sessions#logout'
   get :logged_in, to: 'sessions#logged_in'
 
-  resources :foods, only: %i[index show create update destroy]
+  resources :foods, only: %i[index show create update destroy] do
+    resources :notes, only: %i[create update destroy]
+  end
   
   root 'static#index'
 end
