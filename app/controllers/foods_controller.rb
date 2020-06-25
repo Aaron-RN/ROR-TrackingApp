@@ -6,7 +6,7 @@ class FoodsController < ApplicationController
 
   def index
     render json: {
-      food: Food.all,
+      food: Food.where(user: @current_user),
       selected_food: {}
     }
   end
@@ -15,7 +15,7 @@ class FoodsController < ApplicationController
     if @food
       render json: {
         status: :ok,
-        food: Food.all,
+        food: Food.where(user: @current_user),
         selected_food: { **@food, notes: @food.notes }
       }
     else
@@ -30,7 +30,7 @@ class FoodsController < ApplicationController
     if food.save
       render json: {
         status: :created,
-        food: Food.all,
+        food: Food.where(user: @current_user),
         selected_food: food
       }
     else
@@ -43,7 +43,7 @@ class FoodsController < ApplicationController
     if @food.update(book_params)
       render json: {
         status: :ok,
-        food: Food.all,
+        food: Food.where(user: @current_user),
         selected_food: @food
       }
     else
@@ -55,7 +55,7 @@ class FoodsController < ApplicationController
   def destroy
     @food.destroy
     render json: { status: 'SUCCESS', message: 'Food was successfully deleted!',
-                   food: Food.all, selected_food: @food }, status: :ok
+                   food: Food.where(user: @current_user), selected_food: @food }, status: :ok
   end
 
   private
