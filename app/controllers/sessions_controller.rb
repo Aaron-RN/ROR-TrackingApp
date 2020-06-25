@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   before_action :set_current_user
 
   def create
-    user = User.where(username: params['user']['username']).or(email: params['user']['email'])
+    user = User.where(username: params['user']['username']).or(User.where(email: params['user']['email']))
       .try(:authenticate, params['user']['password'])
 
     if user
