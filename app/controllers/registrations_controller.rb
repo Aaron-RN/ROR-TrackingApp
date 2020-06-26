@@ -13,7 +13,7 @@ class RegistrationsController < ApplicationController
                      error: user.errors.full_messages }, status: 500
     end
   end
-  
+
   private
 
   # only allow the white list through.

@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   include SessionsHelper
 
-  before_action :set_current_user
+  before_action :set_current_user, only: %i[logged_in]
 
   def create
     user = User.where(username: params['user']['username']).or(User.where(email: params['user']['email'])).first
@@ -35,8 +35,6 @@ class SessionsController < ApplicationController
   end
 
   def logout
-    return unless @current_user
-
     reset_session
     render json: {
       status: 200,

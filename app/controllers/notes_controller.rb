@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
   include SessionsHelper
 
-  before_action :set_current_user
+  before_action :set_current_user, only: %i[create update destroy]
   before_action :set_note, only: %i[update destroy]
 
   def create
