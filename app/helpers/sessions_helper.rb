@@ -1,7 +1,7 @@
 module SessionsHelper
   def set_current_user
     if session[:user_id]
-      @current_user = User.find_by(session[:user_id])
+      @current_user = User.find_by(id: session[:user_id])
       if @current_user.nil?
         reset_session
         render json: {
