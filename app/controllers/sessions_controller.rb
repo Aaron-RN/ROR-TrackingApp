@@ -35,6 +35,8 @@ class SessionsController < ApplicationController
   end
 
   def logout
+    return unless @current_user
+
     reset_session
     render json: {
       status: 200,
