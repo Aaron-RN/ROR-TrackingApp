@@ -5,7 +5,8 @@ module SessionsHelper
       if @current_user.nil?
         reset_session
         render json: {
-          status: 200,
+          status: 401,
+          error: ['Not logged in!'],
           logged_out: true
         }
       end
