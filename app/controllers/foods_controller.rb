@@ -13,10 +13,13 @@ class FoodsController < ApplicationController
 
   def show
     if @food
+      food_with_notes = { id: @food.id, name: @food.name, date_consumed: @food.date_consumed,
+                          servings_consumed: @food.servings_consumed, carbs: @food.carbs,
+                          fats: @food.fats, proteins: @food.proteins, notes: @food.notes }
       render json: {
         status: :ok,
         food: Food.where(user: @current_user),
-        selected_food: { **@food, notes: @food.notes }
+        selected_food: food_with_notes
       }
     else
       render json: { status: 'ERROR', message: 'Food could not be found!',
