@@ -37,8 +37,11 @@ class NotesController < ApplicationController
 
   def destroy
     @note.destroy
+    food_with_notes = { id: food.id, name: food.name, date_consumed: food.date_consumed,
+              servings_consumed: food.servings_consumed, carbs: food.carbs,
+              fats: food.fats, proteins: food.proteins, notes: food.notes }
     render json: { status: 'SUCCESS', message: 'Note was successfully deleted!',
-                   note: @note }, status: :ok
+                   note: @note, selected_food: food_with_notes }, status: :ok
   end
 
   private
