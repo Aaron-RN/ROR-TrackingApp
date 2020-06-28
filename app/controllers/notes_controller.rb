@@ -38,7 +38,7 @@ class NotesController < ApplicationController
   def destroy
     @note.destroy
     render json: { status: 'SUCCESS', message: 'Note was successfully deleted!',
-                   food: @note }, status: :ok
+                   note: @note }, status: :ok
   end
 
   private
