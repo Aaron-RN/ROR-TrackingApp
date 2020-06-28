@@ -9,8 +9,12 @@ class NotesController < ApplicationController
     note = food.notes.build(note_params)
 
     if note.save
+      food_with_notes = { id: food.id, name: food.name, date_consumed: food.date_consumed,
+                    servings_consumed: food.servings_consumed, carbs: food.carbs,
+                    fats: food.fats, proteins: food.proteins, notes: food.notes }
       render json: {
         status: :ok,
+        selected_food: food_with_notes,
         note: note
       }
     else
