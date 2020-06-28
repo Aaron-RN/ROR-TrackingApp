@@ -6,7 +6,7 @@ class NotesController < ApplicationController
 
   def create
     food = Food.find(params[:food_id])
-    note = food.notes.build(note_params)
+    note = food.notes.new(note_params)
 
     if note.save
       food_with_notes = { id: food.id, name: food.name, date_consumed: food.date_consumed,
