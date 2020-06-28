@@ -37,6 +37,7 @@ class NotesController < ApplicationController
 
   def destroy
     @note.destroy
+    food = Food.find(params[:food_id])
     food_with_notes = { id: food.id, name: food.name, date_consumed: food.date_consumed,
               servings_consumed: food.servings_consumed, carbs: food.carbs,
               fats: food.fats, proteins: food.proteins, notes: food.notes }
