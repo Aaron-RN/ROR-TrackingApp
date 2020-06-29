@@ -25,9 +25,14 @@ class NotesController < ApplicationController
 
   def update
     if @note.update(note_params)
+      food = Food.find(params[:food_id])
+      food_with_notes = { id: food.id, name: food.name, date_consumed: food.date_consumed,
+                    servings_consumed: food.servings_consumed, carbs: food.carbs,
+                    fats: food.fats, proteins: food.proteins, notes: food.notes }
       render json: {
         status: :ok,
-        note: note
+        selected_food: food_with_notes,
+        note: @note
       }
     else
       render json: { status: 'ERROR', message: 'Note could not be updated!',
