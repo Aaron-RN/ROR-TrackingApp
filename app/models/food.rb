@@ -9,7 +9,7 @@ class Food < ApplicationRecord
   before_destroy :destroy_notes
 
   private
-  
+
   def destroy_notes
     notes.destroy_all
   end
