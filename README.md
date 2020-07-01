@@ -33,6 +33,26 @@ Parameters accepted: { food: { :name, :date_consumed, :servings_consumed, :carbs
 Handles note creation, deletion and editing  
 Parameters accepted: { note: { :body } }
 
+## Routes
+<pre>
+Prefix Verb   URI Pattern                                                                       Controller#Action
+sessions POST   /sessions(.:format)                                                             sessions#create
+registrations POST   /registrations(.:format)                                                   registrations#create
+logout DELETE /logout(.:format)                                                                 sessions#logout
+logged_in GET    /logged_in(.:format)                                                           sessions#logged_in
+food_notes POST   /foods/:food_id/notes(.:format)                                               notes#create
+food_note PATCH  /foods/:food_id/notes/:id(.:format)                                            notes#update
+PUT    /foods/:food_id/notes/:id(.:format)                                                      notes#update
+DELETE /foods/:food_id/notes/:id(.:format)                                                      notes#destroy
+foods GET    /foods(.:format)                                                                   foods#index
+POST   /foods(.:format)                                                                         foods#create
+food GET    /foods/:id(.:format)                                                                foods#show
+PATCH  /foods/:id(.:format)                                                                     foods#update
+PUT    /foods/:id(.:format)                                                                     foods#update
+DELETE /foods/:id(.:format)                                                                     foods#destroy
+root GET    /                                                                                   static#index
+</pre>
+
 ## Built With
 
 - Ruby - '2.6.3'
@@ -43,6 +63,20 @@ Parameters accepted: { note: { :body } }
 
 ## Future plans
 Add in RSpec testing for database data validations and association testing.
+
+## Setting up your own Back-End
+
+### Installation
+
+* Download repository to your local machine, then run `bundle install` and run `rails db:setup`, `rails db:migrate` all within the terminal console.
+
+### Navigate to config/initializers directory
+
+1. Enter the cors.rb file and...
+2. On line 10 you will replace ```origins 'https://arn-tracking-app.herokuapp.com'``` with your own custom app's url. *(As you can see I used heroku to host my app)*
+3. Close the cors.rb file and...
+4. Open the session_store.rb file within the same config/initializers directory and...
+5. Similar to what you did in the cors.rb file, on line 5 you will replace ```domain: 'arn-tracking-app-api.herokuapp.com'``` with your own custom app's domain.
 
 ## Author
 
