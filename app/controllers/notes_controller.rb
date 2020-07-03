@@ -5,10 +5,11 @@ class NotesController < ApplicationController
   before_action :set_note, only: %i[update destroy]
 
   def create
-    food_with_notes = Food.with_notes.find(params[:food_id]).first
-    note = food_with_notes.notes.new(note_params)
+    food = Food.find(params[:food_id])
+    note = food.notes.new(note_params)
 
     if note.save
+      food_with_notes = Food.with_notes.find(params[:food_id]).first
       render json: {
         status: :ok,
         selected_food: food_with_notes,
