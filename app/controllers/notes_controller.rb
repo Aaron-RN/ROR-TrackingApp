@@ -5,7 +5,7 @@ class NotesController < ApplicationController
   before_action :set_note, only: %i[update destroy]
 
   def create
-    food_with_notes = Food.with_notes.find(params[:food_id])
+    food_with_notes = Food.with_notes.find(params[:food_id]).first
     note = food_with_notes.notes.new(note_params)
 
     if note.save
@@ -22,7 +22,7 @@ class NotesController < ApplicationController
 
   def update
     if @note.update(note_params)
-      food_with_notes = Food.with_notes.find(params[:food_id])
+      food_with_notes = Food.with_notes.find(params[:food_id]).first
       render json: {
         status: :ok,
         selected_food: food_with_notes,
@@ -36,7 +36,7 @@ class NotesController < ApplicationController
 
   def destroy
     @note.destroy
-    food_with_notes = Food.with_notes.find(params[:food_id])
+    food_with_notes = Food.with_notes.find(params[:food_id]).first
     render json: { status: 'SUCCESS', message: 'Note was successfully deleted!',
                    note: @note, selected_food: food_with_notes }, status: :ok
   end

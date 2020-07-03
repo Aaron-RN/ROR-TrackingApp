@@ -63,7 +63,7 @@ class FoodsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_food
-    @food = Food.with_notes.find(params[:id])
+    @food = Food.with_notes.find(params[:id]).first
   end
 
   def food_params
