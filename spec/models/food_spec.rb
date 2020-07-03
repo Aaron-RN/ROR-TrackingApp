@@ -3,12 +3,17 @@ require 'rails_helper'
 RSpec.describe Food, type: :model do
   describe 'Food Associations' do
     it { should have_many(:notes) }
+    it { should belong_to(:user) }
   end
 
   describe 'Validations For Food' do
     let(:food) { build(:food) }
     it 'should validate name\'s presence' do
       food.name = ''
+      expect(food.save).to eq(false)
+    end
+    it 'name\'s length is greater than 1 character' do
+      food.name = 'r'
       expect(food.save).to eq(false)
     end
     it 'should validate date_consumed is present' do
