@@ -13,6 +13,7 @@ class FoodsController < ApplicationController
 
   def show
     if @food
+      puts @food
       render json: {
         status: :ok,
         food: Food.where(user: @current_user),
