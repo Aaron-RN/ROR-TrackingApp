@@ -13,13 +13,10 @@ class FoodsController < ApplicationController
 
   def show
     if @food
-      food_with_notes = { id: @food.id, name: @food.name, date_consumed: @food.date_consumed,
-                          servings_consumed: @food.servings_consumed, carbs: @food.carbs,
-                          fats: @food.fats, proteins: @food.proteins, notes: @food.notes }
       render json: {
         status: :ok,
         food: Food.where(user: @current_user),
-        selected_food: food_with_notes
+        selected_food: @food
       }
     else
       render json: { status: 'ERROR', message: 'Food could not be found!',
@@ -43,7 +40,7 @@ class FoodsController < ApplicationController
   end
 
   def update
-    if @food.update(book_params)
+    if @food.update(food_params)
       render json: {
         status: :ok,
         food: Food.where(user: @current_user),
@@ -65,7 +62,7 @@ class FoodsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_food
-    @food = Food.find(params[:id])
+    @food = Food.with_notes.find(params[:id])
   end
 
   def food_params
