@@ -17,6 +17,6 @@ class Food < ApplicationRecord
       food_with_notes << food_and_notes
     end
 
-    food_with_notes
+    food_with_notes[0]
   end
 end
