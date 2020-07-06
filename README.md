@@ -61,8 +61,9 @@ root GET    /                                                                   
 - Rack-CORS
 - Bcrypt '~> 3.1.7'
 
-## Future plans
-Add in RSpec testing for database data validations and association testing.
+### Automated Testing with [RSPEC](https://github.com/rspec/rspec-rails)
+
+* Run `bundle exe rspec` within the terminal console after installing project repository.
 
 ## Setting up your own Back-End
 
