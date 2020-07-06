@@ -62,9 +62,12 @@ class FoodsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_food
+    puts 'Food.with_notes()'
     puts Food.with_notes
     puts ''
-    @food = Food.with_notes.find_by(id: params[:id]).select{ |elem|  elem.id == params[:id] }
+    puts 'Food.with_notes.find()'
+    puts Food.with_notes.find(params[:id])
+    @food = Food.with_notes.find(params[:id]).select{ |elem|  elem.id == params[:id] }
   end
 
   def food_params
