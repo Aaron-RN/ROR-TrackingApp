@@ -55,7 +55,7 @@ class FoodsController < ApplicationController
   def destroy
     @food.destroy
     render json: { status: 'SUCCESS', message: 'Food was successfully deleted!',
-                   food: @food, selected_food: @selected_food }, status: :ok
+                   food: @food }, status: :ok
   end
 
   private
