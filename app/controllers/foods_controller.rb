@@ -15,8 +15,8 @@ class FoodsController < ApplicationController
     if @food
       render json: {
         status: :ok,
-        food: Food.where(user: @current_user),
-        selected_food: @food
+        food: @food,
+        selected_food: @selected_food
       }
     else
       render json: { status: 'ERROR', message: 'Food could not be found!',
@@ -43,8 +43,8 @@ class FoodsController < ApplicationController
     if @food.update(food_params)
       render json: {
         status: :ok,
-        food: Food.where(user: @current_user),
-        selected_food: @food
+        food: @food,
+        selected_food: @selected_food
       }
     else
       render json: { status: 'ERROR', message: 'Food could not be updated!',
@@ -55,17 +55,15 @@ class FoodsController < ApplicationController
   def destroy
     @food.destroy
     render json: { status: 'SUCCESS', message: 'Food was successfully deleted!',
-                   food: Food.where(user: @current_user), selected_food: @food }, status: :ok
+                   food: @food, selected_food: @selected_food }, status: :ok
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_food
-    id_to_find = params[:id]
-    puts "id_to_find: #{id_to_find}"
-    @food = Food.with_notes.find { |food| food[:id] == id_to_find }
-    puts "Food selected: #{@food}"
+    @food = Food.where(user: @current_user)
+    @selected_food = Food.with_notes(params[:id])
   end
 
   def food_params
