@@ -64,7 +64,7 @@ class FoodsController < ApplicationController
   def set_food
     id_to_find = params[:id]
     puts "id_to_find: #{id_to_find}"
-    @food = Food.with_notes.find { |food| food[:id] == id_to_find }.first
+    @food = Food.with_notes.find { |food| food[:id] == id_to_find }
     puts "Food selected: #{@food}"
   end
 
