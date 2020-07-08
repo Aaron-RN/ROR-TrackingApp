@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Foods', type: :request do
-  before(:all) do
+  before(:each) do
     @user = create(:user)
 
     post '/sessions', params: { user: { username: @user.username, password: @user.password } }
