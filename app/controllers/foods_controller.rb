@@ -44,7 +44,7 @@ class FoodsController < ApplicationController
       render json: {
         status: :ok,
         food: @food_list,
-        selected_food: @selected_food
+        selected_food: Food.with_notes(@food.id) # Re-ran this method because @selected_food contained an outdated value
       }
     else
       render json: { status: 'ERROR', message: 'Food could not be updated!',
