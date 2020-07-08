@@ -60,6 +60,8 @@ root GET    /                                                                   
 - PostgreSQL '>= 0.18', '< 2.0'
 - Rack-CORS
 - Bcrypt '~> 3.1.7'
+- RSpec-rails '~> 4.0.0'
+- Capybara '>= 2.15'
 
 ### Automated Testing with [RSPEC](https://github.com/rspec/rspec-rails)
 
