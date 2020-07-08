@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Foods', type: :request do
+RSpec.describe 'Notes', type: :request do
   before(:all) do
     @user = create(:user)
 
@@ -17,6 +17,10 @@ RSpec.describe 'Foods', type: :request do
     post '/foods', params: { food: food2 }
     expect(JSON(response.body)['selected_food'].fetch('name')).to eq(food2[:name])
     @food2 = JSON(response.body)['selected_food']
+
+    note = attributes_for(:note)
+    post "/foods/#{@food.fetch('id')}/notes", params: { note: note }
+    @note = JSON(response.body)['note']
   end
 
   describe 'POST /create' do
@@ -25,36 +29,20 @@ RSpec.describe 'Foods', type: :request do
     end
   end
 
-  describe 'GET /index' do
-    it 'returns list of food related to Logged in User' do
-      get '/foods'
-      expect(JSON(response.body).length).to eq(2)
-    end
-  end
-
-  describe 'GET /show' do
-    it 'returns selected food' do
-      get "/foods/#{@food.fetch('id')}"
+  describe 'PATCH /update' do
+    it 'returns http ok' do
+      patch "/foods/#{@food.fetch('id')}/notes/#{@note.fetch('id')}",
+            params: { note: { body: 'I retract my previous comment, the salt was just right!' } }
 
       expect(response).to have_http_status(:ok)
-      expect(JSON(response.body)['selected_food'].fetch('name')).to eq(@food.fetch('name'))
-    end
-  end
-
-  describe 'PATCH /update' do
-    it 'returns updated food item' do
-      patch "/foods/#{@food2.fetch('id')}", params: { food: { name: 'Ramen Noodle' } }
-
-      expect(JSON(response.body)['selected_food'].fetch('name')).to eq('Ramen Noodle')
     end
   end
 
   describe 'DELETE /destroy' do
-    it 'destroys selected food and returns updated food list' do
-      delete "/foods/#{@food.fetch('id')}"
+    it 'returns http ok' do
+      delete "/foods/#{@food.fetch('id')}/notes/#{@note.fetch('id')}"
 
       expect(response).to have_http_status(:ok)
-      expect(JSON(response.body)['food'].length).to eq(1)
     end
   end
 end
