@@ -5,17 +5,14 @@ RSpec.describe 'Foods', type: :request do
     @user = create(:user)
 
     post '/sessions', params: { user: { username: @user.username, password: @user.password } }
-    expect(JSON(response.body)['logged_in']).to equal(true)
 
     food = attributes_for(:food)
     food2 = attributes_for(:food2)
 
     post '/foods', params: { food: food }
-    expect(JSON(response.body)['selected_food'].fetch('name')).to eq(food[:name])
     @food = JSON(response.body)['selected_food']
 
     post '/foods', params: { food: food2 }
-    expect(JSON(response.body)['selected_food'].fetch('name')).to eq(food2[:name])
     @food2 = JSON(response.body)['selected_food']
   end
 
